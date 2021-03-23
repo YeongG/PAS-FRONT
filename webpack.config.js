@@ -17,15 +17,27 @@ module.exports = {
         use: "ts-loader",
         exclude: "/node_modules/",
       },
+      {
+        test: /\.(jpg|png|jpeg|bmp|gif|svg)?$/,
+        loader: "file-loader",
+      },
+      {
+        test: /\.css?$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   output: {
     filename: "bundle.min.js",
     path: path.resolve(__dirname, "s3-build"),
+    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
 };
