@@ -13,6 +13,7 @@ import * as S from "./style";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setSliderStep } from "../../modules/action/slider";
+import { getAnalysis } from "../../modules/action/analysis";
 
 const IndexPage: FC = () => {
   const dispatch = useDispatch();
@@ -28,19 +29,27 @@ const IndexPage: FC = () => {
     inputRef.current.click();
   }, [isUploadImg]);
 
-  const changeFileHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const fileUrl: string = e.currentTarget.value;
-    const splitUrl: string[] = fileUrl.split(".");
-    const extension: string = splitUrl[splitUrl.length - 1];
+  const changeFileHandler = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      const fileUrl: string = e.currentTarget.value;
+      const splitUrl: string[] = fileUrl.split(".");
+      const extension: string = splitUrl[splitUrl.length - 1];
 
-    if (!isAllowedFile(extension)) {
-      e.preventDefault();
-      toast.error("지원되지 않는 확장자 입니다");
-      return;
-    }
+      if (!isAllowedFile(extension)) {
+        e.preventDefault();
+        toast.error("지원되지 않는 확장자 입니다");
+        return;
+      }
 
-    setIsUploadImg(true);
-  }, []);
+      try {
+        setIsUploadImg(true);
+        dispatch(getAnalysis(e.target.files[0]));
+      } catch (err) {
+        setIsUploadImg(false);
+      }
+    },
+    []
+  );
   return (
     <S.Container>
       <S.BackgroundImg
