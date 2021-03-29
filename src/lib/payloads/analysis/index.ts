@@ -7,6 +7,15 @@ interface Vertice {
   vertices: Location[];
 }
 
+interface Color {
+  hex: string;
+  percent: number;
+  pixelFraction: number;
+  rgb: string;
+  score: number;
+  percentRounded: number;
+}
+
 interface CropHintAnnotation {
   boundingPoly: Vertice;
   confidence: number;
@@ -30,11 +39,25 @@ interface FaceAnnotation {
   sorrowLikelihood: string;
 }
 
-interface GoogleAiVisionRes {
-  cropHintsAnnotation: CropHintAnnotation;
-  faceAnnotations;
-  imagePropertiesAnnotation;
-  labelAnnotations;
-  localizedObjectAnnotations;
-  safeSearchAnnotation;
+interface LabelAnnotation {
+  description: string;
+  mid: string;
+  score: number;
+  topicality: number;
+}
+
+export interface GoogleAiVisionRes {
+  cropHintsAnnotation: {
+    cropHints: CropHintAnnotation[];
+  };
+  faceAnnotations?: FaceAnnotation;
+  imagePropertiesAnnotation: {
+    cropHints: CropHintAnnotation[];
+    dominantColors: {
+      colors: Color[];
+    };
+  };
+  labelAnnotations: LabelAnnotation[];
+  localizedObjectAnnotations: object;
+  safeSearchAnnotation: object;
 }
