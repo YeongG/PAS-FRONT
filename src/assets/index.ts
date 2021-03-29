@@ -7,3 +7,4 @@ export { default as pictureIcon } from "./pictureIcon.svg";
 export { default as galleryIcon } from "./galleryIcon.svg";
 export { default as recordIcon } from "./recordIcon.svg";
 export { default as recodingIcon } from "./recodingIcon.svg";
+export { default as checkIcon } from "./checkIcon.svg";
