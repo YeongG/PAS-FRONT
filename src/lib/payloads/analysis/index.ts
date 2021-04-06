@@ -1,63 +1,101 @@
-interface Location {
+export interface Vertice {
   x?: number;
   y?: number;
 }
 
-interface Vertice {
-  vertices: Location[];
+export interface RGB {
+  blue: number;
+  green: number;
+  red: number;
 }
 
-interface Color {
+export interface ColorAnalysis {
+  color: RGB;
   hex: string;
   percent: number;
+  percentRounded: number;
   pixelFraction: number;
   rgb: string;
   score: number;
-  percentRounded: number;
 }
 
-interface CropHintAnnotation {
-  boundingPoly: Vertice;
+export interface CropHint {
+  boundingPoly: Vertice[];
   confidence: number;
   importanceFraction: number;
 }
 
-interface FaceAnnotation {
-  angerLikelihood: string;
-  blurredLikelihood: string;
-  boundingPoly: Vertice;
-  detectionConfidence: number;
-  fdBoundingPoly: Vertice;
-  headwearLikelihood: string;
-  joyLikelihood: string;
-  landmarkingConfidence: number;
-  panAngle: number;
-  rollAngle: number;
-  surpriseLikelihood: string;
-  tiltAngle: number;
-  underExposedLikelihood: string;
-  sorrowLikelihood: string;
-}
-
-interface LabelAnnotation {
+export interface LabelAnalysis {
   description: string;
   mid: string;
   score: number;
   topicality: number;
 }
 
-export interface GoogleAiVisionRes {
-  cropHintsAnnotation: {
-    cropHints: CropHintAnnotation[];
+export interface LocalizedObjectAnalysis {
+  boundingPoly: {
+    normalizedVertices: Vertice[];
   };
-  faceAnnotations?: FaceAnnotation;
-  imagePropertiesAnnotation: {
-    cropHints: CropHintAnnotation[];
-    dominantColors: {
-      colors: Color[];
-    };
-  };
-  labelAnnotations: LabelAnnotation[];
-  localizedObjectAnnotations: object;
-  safeSearchAnnotation: object;
+  mide: string;
+  name: string;
+  score: number;
 }
+
+export interface LogoAnalysis {
+  boundingPoly: Vertice[];
+  description: string;
+  mid: string;
+  score: number;
+}
+
+export interface TextAnalysis {
+  description: string;
+  locale: string;
+  boundingPoly: {
+    vertices: Vertice[];
+  };
+}
+
+export interface SafeSearchAnnotation {
+  adult: "VERY_UNLIKELY";
+  medical: "VERY_UNLIKELY";
+  racy: "VERY_UNLIKELY";
+  spoof: "UNLIKELY";
+  violence: "VERY_UNLIKELY";
+}
+
+export interface FullTextAnnotation {
+  pages: [];
+  text: string;
+}
+
+export interface ImagePropertiesAnnotation {
+  cropHints: CropHint[];
+  dominantColors: {
+    colors: ColorAnalysis[];
+  };
+}
+export interface CropHintsAnnotation {
+  cropHints: CropHint[];
+}
+
+export interface GoogleVisionRes {
+  cropHintsAnnotation: CropHintsAnnotation;
+  fullTextAnnotation: FullTextAnnotation;
+  imagePropertiesAnnotation: ImagePropertiesAnnotation;
+  labelAnnotations: LabelAnalysis[];
+  localizedObjectAnnotations: LocalizedObjectAnalysis[];
+  logoAnnotations: LogoAnalysis[];
+  safeSearchAnnotation: SafeSearchAnnotation;
+  textAnnotations: TextAnalysis[];
+}
+
+export type AnalysisType =
+  | "cropHint"
+  | "fullText"
+  | "imagePropertie"
+  | "label"
+  | "localizedObject"
+  | "logo"
+  | "safeSearch"
+  | "text";
