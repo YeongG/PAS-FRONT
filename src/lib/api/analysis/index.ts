@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import apiDefault from "../../client";
-import { GoogleAiVisionRes } from "../../payloads/analysis";
+import { GoogleVisionRes } from "../../payloads/analysis";
 
 export const imageAnalysis = (
   formData: FormData
