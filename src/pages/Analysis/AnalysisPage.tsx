@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
 import { AnalysisMenu, AnalysisNav } from "../../components";
 import { AnalysisNavItem } from "../../components/AnalysisNav/AnalysisNav";
 import { AnalysisType } from "../../lib/payloads/analysis";
@@ -32,12 +33,65 @@ const AnalysisPage: FC = () => {
     dispatch(setSliderStep("analysis"));
   }, []);
 
-  // useEffect(() => {
-  //   if (!originalImgSrc) {
-  //     toast.error("잘못된 접근 입니다.");
-  //     history.push("/");
-  //   }
-  // }, [originalImgSrc]);
+  useEffect(() => {
+    if (!originalImgSrc) {
+      toast.error("잘못된 접근 입니다.");
+      history.push("/");
+    }
+  }, [originalImgSrc, analysis]);
+
+  useEffect(() => {
+    const { width, height } = imgRef.current;
+
+    canvasRef.current.width = width;
+    canvasRef.current.height = height;
+
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.strokeStyle = "rgb(118, 255, 3)";
+    ctx.lineWidth = 4;
+
+    let vertices: any[];
+    let getSrc;
+    switch (nowType) {
+      case "fullText":
+      case "label":
+      case "imagePropertie":
+      case "safeSearch":
+        vertices = [];
+        break;
+
+      case "text": {
+        vertices = analysis.textAnnotations;
+        getSrc = (data) => data.boundingPoly.vertices;
+        break;
+      }
+      case "cropHint": {
+        vertices = analysis.cropHintsAnnotation.cropHints;
+        getSrc = (data) => data.boundingPoly.vertices;
+        break;
+      }
+      case "localizedObject": {
+        vertices = analysis.localizedObjectAnnotations;
+        getSrc = (data) => data.boundingPoly.normalizedVertices;
+        break;
+      }
+      case "logo": {
+        vertices = analysis.logoAnnotations;
+        getSrc = (data) => data.boundingPoly.vertices;
+        break;
+      }
+    }
+
+    vertices.forEach((data) => {
+      const {
+        height: drawHeight,
+        width: drawWidth,
+        x1,
+        y1,
+      } = getCanvasBorderSize(getSrc(data), { width, height });
+      ctx.strokeRect(x1, y1, drawWidth, drawHeight);
+    });
+  }, [nowType]);
 
   const navChangeHandler = useCallback((data: AnalysisNavItem) => {
     setNowType(data.value);
@@ -52,7 +106,7 @@ const AnalysisPage: FC = () => {
 
       const ctx = canvasRef.current.getContext("2d");
       ctx.strokeStyle = "rgb(118, 255, 3)";
-      ctx.lineWidth = 8;
+      ctx.lineWidth = 4;
 
       const {
         height: drawHeight,
@@ -73,7 +127,11 @@ const AnalysisPage: FC = () => {
     <S.Container>
       <div>
         <S.MenuNav>
-          <AnalysisNav datas={analysisItems} onChange={navChangeHandler} />
+          <AnalysisNav
+            activeType={nowType}
+            datas={analysisItems}
+            onChange={navChangeHandler}
+          />
         </S.MenuNav>
         <S.RelativeDiv>
           <S.OriginalImg
