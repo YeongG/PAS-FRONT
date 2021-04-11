@@ -8,3 +8,4 @@ export { default as galleryIcon } from "./galleryIcon.svg";
 export { default as recordIcon } from "./recordIcon.svg";
 export { default as recodingIcon } from "./recodingIcon.svg";
 export { default as checkIcon } from "./checkIcon.svg";
+export { default as loginIcon } from "./loginIcon.svg";
