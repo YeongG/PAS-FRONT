@@ -10,13 +10,19 @@ export interface AnalysisNavItem {
 interface Props {
   datas: AnalysisNavItem[];
   onChange: (value: AnalysisNavItem) => void;
+  activeType: AnalysisType;
 }
 
-const AnalysisNav: FC<Props> = ({ datas, onChange }) => {
+const AnalysisNav: FC<Props> = ({ datas, onChange, activeType }) => {
   return (
     <S.Container>
       {datas.map((data) => (
-        <S.NavItem onClick={() => onChange(data)}>{data.name}</S.NavItem>
+        <S.NavItem
+          active={data.value === activeType}
+          onClick={() => onChange(data)}
+        >
+          {data.name}
+        </S.NavItem>
       ))}
     </S.Container>
   );
