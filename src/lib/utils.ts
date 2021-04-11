@@ -13,8 +13,22 @@ export const getCanvasBorderSize = (
 
   const [vertice1, _, vertice3] = vertices;
 
-  const { x: x1, y: y1 } = vertice1;
-  const { x: x2, y: y2 } = vertice3;
+  let { x: x1, y: y1 } = vertice1;
+  let { x: x2, y: y2 } = vertice3;
+
+  if (x1 >= 1) {
+    // x1 = x1 * 0.001;
+    // x2 = x2 * 0.001;
+    // y1 = y1 * 0.001;
+    // y2 = y2 * 0.001;
+
+    return {
+      x1,
+      y1,
+      width: x2 - x1,
+      height: y2 - y1,
+    };
+  }
 
   const canvasX1 = x1 * width;
   const canvasX2 = x2 * width;
