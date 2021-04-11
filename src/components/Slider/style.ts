@@ -37,6 +37,20 @@ export const Container = styled.div`
     animation: ${slideDown} 0.5s forwards;
   }
 `;
+export const LoginWrap = styled.div`
+  margin-top: 70px;
+`;
+
+export const LoginImg = styled.img`
+  width: 60px;
+  height: 60px;
+  opacity: 0.4;
+  transition: 250ms all;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 export const IconImg = styled.img<{ isActive?: boolean }>`
   width: 60px;

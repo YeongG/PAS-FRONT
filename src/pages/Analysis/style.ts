@@ -19,8 +19,8 @@ export const RelativeDiv = styled.div`
   display: flex;
 `;
 export const OriginalImg = styled.img`
-  max-width: 1000px;
-  max-height: 700px;
+  /* max-width: 1000px; */
+  /* max-height: 700px; */
   height: auto;
   object-fit: cover;
 `;
