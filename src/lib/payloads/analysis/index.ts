@@ -20,7 +20,9 @@ export interface ColorAnalysis {
 }
 
 export interface CropHint {
-  boundingPoly: Vertice[];
+  boundingPoly: {
+    vertices: Vertice[];
+  };
   confidence: number;
   importanceFraction: number;
 }
@@ -42,7 +44,9 @@ export interface LocalizedObjectAnalysis {
 }
 
 export interface LogoAnalysis {
-  boundingPoly: Vertice[];
+  boundingPoly: {
+    vertices: Vertice[];
+  };
   description: string;
   mid: string;
   score: number;
@@ -57,11 +61,11 @@ export interface TextAnalysis {
 }
 
 export interface SafeSearchAnnotation {
-  adult: "VERY_UNLIKELY";
-  medical: "VERY_UNLIKELY";
-  racy: "VERY_UNLIKELY";
-  spoof: "UNLIKELY";
-  violence: "VERY_UNLIKELY";
+  adult: AnalysisSafeType;
+  medical: AnalysisSafeType;
+  racy: AnalysisSafeType;
+  spoof: AnalysisSafeType;
+  violence: AnalysisSafeType;
 }
 
 export interface FullTextAnnotation {
@@ -90,6 +94,13 @@ export interface GoogleVisionRes {
   textAnnotations: TextAnalysis[];
 }
 
+export type AnalysisSafeType =
+  | "VERY_UNLIKELY"
+  | "UNLIKELY"
+  | "POSSIBLE"
+  | "LIKELY"
+  | "VERY_LIKELY";
+
 export type AnalysisType =
   | "cropHint"
   | "fullText"
@@ -99,3 +110,11 @@ export type AnalysisType =
   | "logo"
   | "safeSearch"
   | "text";
+
+export enum AnalysisSafeValue {
+  "VERY_UNLIKELY" = 1,
+  "UNLIKELY" = 2,
+  "POSSIBLE" = 3,
+  "LIKELY" = 4,
+  "VERY_LIKELY" = 5,
+}
