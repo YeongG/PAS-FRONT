@@ -1,3 +1,4 @@
+import { GoogleVisionRes } from "../../../lib/payloads/analysis";
 import AnalysisAction, {
   GET_ANALYSIS_SUCCESS,
   SET_ORIGINAL_IMG_SRC,
@@ -5,12 +6,30 @@ import AnalysisAction, {
 
 interface AnalysisReducerState {
   originalImgSrc: string;
-  analysis: any;
+  analysis: GoogleVisionRes;
 }
 
 const initialState: AnalysisReducerState = {
   originalImgSrc: "",
-  analysis: {},
+  analysis: {
+    cropHintsAnnotation: { cropHints: [] },
+    fullTextAnnotation: { pages: [], text: "" },
+    imagePropertiesAnnotation: {
+      cropHints: [],
+      dominantColors: { colors: [] },
+    },
+    labelAnnotations: [],
+    localizedObjectAnnotations: [],
+    logoAnnotations: [],
+    safeSearchAnnotation: {
+      adult: "VERY_UNLIKELY",
+      medical: "VERY_UNLIKELY",
+      racy: "VERY_UNLIKELY",
+      spoof: "VERY_UNLIKELY",
+      violence: "VERY_UNLIKELY",
+    },
+    textAnnotations: [],
+  },
 };
 
 const analysisReducer = (
