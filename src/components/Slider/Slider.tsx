@@ -1,6 +1,12 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { checkIcon, realTimeIcon, selectIcon, uploadIcon } from "../../assets";
+import {
+  checkIcon,
+  loginIcon,
+  realTimeIcon,
+  selectIcon,
+  uploadIcon,
+} from "../../assets";
 import { Store } from "../../modules/reducer";
 import * as S from "./style";
 
@@ -15,6 +21,9 @@ const Slider: FC = () => {
       <S.IconImg isActive={step === "d"} src={uploadIcon} />
       <S.IconImg isActive={step === "e"} src={uploadIcon} />
       <S.IconImg isActive={step === "f"} src={uploadIcon} />
+      <S.LoginWrap>
+        <S.LoginImg src={loginIcon} />
+      </S.LoginWrap>
     </S.Container>
   );
 };
