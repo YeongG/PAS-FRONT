@@ -1,3 +1,4 @@
+import { NodeBuilderFlags } from "typescript";
 import { Vertice } from "./payloads/analysis";
 import { allowedExtensions } from "./static";
 
@@ -17,11 +18,6 @@ export const getCanvasBorderSize = (
   let { x: x2, y: y2 } = vertice3;
 
   if (x1 >= 1) {
-    // x1 = x1 * 0.001;
-    // x2 = x2 * 0.001;
-    // y1 = y1 * 0.001;
-    // y2 = y2 * 0.001;
-
     return {
       x1,
       y1,
@@ -42,4 +38,15 @@ export const getCanvasBorderSize = (
     width: canvasX2 - canvasX1,
     height: canvasY2 - canvasY1,
   };
+};
+
+export const checkIsNotBlank = (obj: object): boolean => {
+  const propertys: string[] = Object.keys(obj);
+  propertys.forEach((property: string) => {
+    if (!obj[property]) {
+      throw property;
+    }
+  });
+
+  return true;
 };
