@@ -4,7 +4,13 @@ import { Route, Switch, Router } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { Slider } from "./components";
 import GlobalStyle from "./GlobalStyle";
-import { AnalysisPage, IndexPage, RealtimePage, UploadPage } from "./pages";
+import {
+  AnalysisPage,
+  IndexPage,
+  ModalPage,
+  RealtimePage,
+  UploadPage,
+} from "./pages";
 import { history } from "./modules";
 
 const App: FC = () => {
@@ -13,6 +19,7 @@ const App: FC = () => {
       <ToastContainer />
       <GlobalStyle />
       <Slider />
+      <ModalPage />
       <Switch>
         <Route exact path="/" component={IndexPage} />
         <Route exact path="/upload" component={UploadPage} />
