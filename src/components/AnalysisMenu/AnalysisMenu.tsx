@@ -71,31 +71,31 @@ const AnalysisMenu: FC<Props> = ({
           <>
             <ProgressBlock
               max={5}
-              name={"성인"}
+              name="성인"
               value={adult}
               progress={AnalysisSafeValue[adult]}
             />
             <ProgressBlock
               max={5}
-              name={"spoof"}
+              name="spoof"
               value={spoof}
               progress={AnalysisSafeValue[spoof]}
             />
             <ProgressBlock
               max={5}
-              name={"의료"}
+              name="의료"
               value={medical}
               progress={AnalysisSafeValue[medical]}
             />
             <ProgressBlock
               max={5}
-              name={"violence"}
+              name="violence"
               value={violence}
               progress={AnalysisSafeValue[violence]}
             />
             <ProgressBlock
               max={5}
-              name={"racy"}
+              name="racy"
               value={racy}
               progress={AnalysisSafeValue[racy]}
             />
