@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import React, { FC, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   checkIcon,
   loginIcon,
@@ -7,11 +7,17 @@ import {
   selectIcon,
   uploadIcon,
 } from "../../assets";
+import { setModalOpen } from "../../modules/action/loginModal";
 import { Store } from "../../modules/reducer";
 import * as S from "./style";
 
 const Slider: FC = () => {
   const step: string = useSelector((store: Store) => store.slider.step);
+  const dispatch = useDispatch();
+
+  const loginModalOn = useCallback(() => {
+    dispatch(setModalOpen(true));
+  }, []);
   return (
     <S.Container>
       <S.IconImg isActive={step === "select"} src={selectIcon} />
@@ -22,7 +28,7 @@ const Slider: FC = () => {
       <S.IconImg isActive={step === "e"} src={uploadIcon} />
       <S.IconImg isActive={step === "f"} src={uploadIcon} />
       <S.LoginWrap>
-        <S.LoginImg src={loginIcon} />
+        <S.LoginImg onClick={loginModalOn} src={loginIcon} />
       </S.LoginWrap>
     </S.Container>
   );
