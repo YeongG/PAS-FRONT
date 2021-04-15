@@ -27,3 +27,8 @@ export const analysisItems: AnalysisNavItem[] = [
     value: "safeSearch",
   },
 ];
+
+export const propertyNameToKr = {
+  id: "아이디",
+  password: "비밀번호",
+};
