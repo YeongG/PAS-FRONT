@@ -31,4 +31,5 @@ export const analysisItems: AnalysisNavItem[] = [
 export const propertyNameToKr = {
   id: "아이디",
   password: "비밀번호",
+  name: "이름",
 };
