@@ -43,7 +43,7 @@ export const getCanvasBorderSize = (
 export const checkIsNotBlank = (obj: object): boolean => {
   const propertys: string[] = Object.keys(obj);
   propertys.forEach((property: string) => {
-    if (!obj[property]) {
+    if (obj[property] === "") {
       throw property;
     }
   });
