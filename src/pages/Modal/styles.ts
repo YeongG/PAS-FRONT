@@ -1,4 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const modalOnAnimate = keyframes`
+  0% {
+    opacity:0.5;
+    transform:translateY(-100px);
+  }
+  100% {
+    opacity:1;
+    transform:translateY(0px);
+  }
+`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -20,6 +31,11 @@ export const Modal = styled.form`
   padding: 20px;
   border-radius: 4px;
   padding-bottom: 20px;
+  animation: ${modalOnAnimate} 300ms;
+
+  @media (max-width: 500px) {
+    width: calc(100% - 20px);
+  }
 `;
 
 export const Header = styled.div`
@@ -38,6 +54,13 @@ export const XButton = styled.div`
   cursor: pointer;
   font-size: 22px;
   right: 20px;
+`;
+
+export const AuthHelpMsg = styled.div`
+  color: #606060;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
 `;
 
 export const AuthInput = styled.input`
