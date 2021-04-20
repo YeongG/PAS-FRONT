@@ -1,14 +1,7 @@
-import React, { FC, FormEvent, useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import useForm from "../../lib/hooks/useForm";
-import { propertyNameToKr } from "../../lib/static";
-import { checkIsNotBlank } from "../../lib/utils";
-import { AuthReq, AuthRes } from "../../lib/payloads/auth";
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Store } from "../../modules/reducer";
 import * as S from "./styles";
-import { reqLogin } from "../../lib/api/auth";
-import { setModalOpen } from "../../modules/action/loginModal";
 import { modalConstant } from "../../lib/payloads/modal";
 import LoginModal from "./Login/LoginModal";
 import RegisterModal from "./Register/RegisterModal";
