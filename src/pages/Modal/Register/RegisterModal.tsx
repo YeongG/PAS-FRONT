@@ -7,7 +7,9 @@ import { modalConstant } from "../../../lib/payloads/modal";
 import { propertyNameToKr } from "../../../lib/static";
 import { checkIsNotBlank } from "../../../lib/utils";
 import { setModalOpen, setModalType } from "../../../modules/action/loginModal";
+import * as authApi from "../../../lib/api/auth";
 import * as S from "../styles";
+import { AxiosError } from "axios";
 
 const RegisterModal: FC = () => {
   const dispatch = useDispatch();
@@ -15,18 +17,28 @@ const RegisterModal: FC = () => {
   const [registerData, setRegisterData, registerHandler] = useForm<RegisterReq>(
     { name: "", id: "", password: "" }
   );
-  const loginSubmitHandler = useCallback(
+  const registerSubmitHandler = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       try {
         checkIsNotBlank(registerData);
       } catch (emptyProperty) {
-        console.log(emptyProperty);
         const korName: string = propertyNameToKr[emptyProperty];
         toast.error(`${korName}을 입력해주세요`);
       }
+
+      try {
+        await authApi.reqRegister(registerData);
+        toast.success("회원가입에 성공했습니다");
+      } catch (err) {
+        const status: number = (err as AxiosError).response.status;
+        switch (status) {
+          case 409:
+            toast.error("중복된 ID가 존재합니다.");
+        }
+      }
     },
-    []
+    [registerData]
   );
   const closeModal = useCallback(() => {
     dispatch(setModalOpen(false));
@@ -36,7 +48,7 @@ const RegisterModal: FC = () => {
   }, []);
 
   return (
-    <S.Modal onSubmit={loginSubmitHandler}>
+    <S.Modal onSubmit={registerSubmitHandler}>
       <S.XButton onClick={closeModal}>&times;</S.XButton>
       <S.Header>
         <S.Title>회원가입</S.Title>

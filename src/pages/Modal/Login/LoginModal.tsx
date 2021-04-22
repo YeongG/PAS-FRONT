@@ -2,13 +2,13 @@ import React, { FC, FormEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import * as authApi from "../../../lib/api/auth";
+import { authConstant } from "../../../lib/client";
 import useForm from "../../../lib/hooks/useForm";
 import { AuthReq, AuthRes } from "../../../lib/payloads/auth";
 import { modalConstant } from "../../../lib/payloads/modal";
 import { propertyNameToKr } from "../../../lib/static";
 import { checkIsNotBlank } from "../../../lib/utils";
 import { setModalOpen, setModalType } from "../../../modules/action/loginModal";
-import { Store } from "../../../modules/reducer";
 import * as S from "../styles";
 
 const LoginModal: FC = () => {
@@ -31,7 +31,13 @@ const LoginModal: FC = () => {
 
       try {
         const authRes: AuthRes = (await authApi.reqLogin(loginData)).data;
-      } catch (err) {}
+        localStorage.setItem(authConstant.ACCESS_TOKEN, authRes.accessToken);
+        toast.success("로그인에 성공하였습니다");
+        dispatch(setModalType(modalConstant.SUCCESS));
+      } catch (err) {
+        setLoginData((prev) => ({ ...prev, password: "" }));
+        toast.error("아이디 또는 비밀번호가 일치하지 않습니다");
+      }
     },
     [loginData]
   );
