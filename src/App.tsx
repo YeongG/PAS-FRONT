@@ -10,6 +10,7 @@ import {
   ModalPage,
   RealtimePage,
   UploadPage,
+  HistoryPage,
 } from "./pages";
 import { history } from "./modules";
 
@@ -25,6 +26,7 @@ const App: FC = () => {
         <Route exact path="/upload" component={UploadPage} />
         <Route exact path="/realtime" component={RealtimePage} />
         <Route exact path="/analysis" component={AnalysisPage} />
+        <Route exact path="/history" component={HistoryPage} />
       </Switch>
     </Router>
   );
