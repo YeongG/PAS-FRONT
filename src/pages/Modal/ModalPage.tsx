@@ -8,6 +8,7 @@ import RegisterModal from "./Register/RegisterModal";
 import * as authApi from "../../lib/api/auth";
 import { setModalType } from "../../modules/action/loginModal";
 import { useHistory } from "react-router";
+import SuccessModal from "./Success/SuccessModal";
 
 const Modal: FC = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Modal: FC = () => {
       .then(() => {
         dispatch(setModalType(modalConstant.SUCCESS));
       })
-      .catch((err) => {});
+      .catch(() => {});
   }, []);
 
   return (
@@ -30,7 +31,7 @@ const Modal: FC = () => {
         ) : type === modalConstant.REGISTER ? (
           <RegisterModal />
         ) : (
-          <div></div>
+          <SuccessModal />
         )}
       </S.Container>
     )
